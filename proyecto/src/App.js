@@ -1,10 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import ItemsListContainer from "./components/ItemsListContainer";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hola mundillo!</h1>
+      <NavBar/>
+      <ItemsListContainer
+        greeting="Hola Coder"
+      />
     </div>
   );
 }
