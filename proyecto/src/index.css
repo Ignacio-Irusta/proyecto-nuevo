@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.Es{
+  width: 30%;
+}
+
+.Es-width{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.al {
+  text-decoration: underline;
+  color: azure;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+

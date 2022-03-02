@@ -1,8 +1,9 @@
 import React from 'react'
+import { Cart } from 'react-bootstrap-icons';
 
 function CartWidget() {
     return (
-        <div>CartWidget</div>
+        <Cart/>
     );
 }
 

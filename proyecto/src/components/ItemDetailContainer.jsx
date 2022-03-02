@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react'; // React.useState ponerlo en la funcion  mientras importo react es lo mismo
-import Itemslist from './Itemslist';
+import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
 
 
@@ -7,91 +7,77 @@ const ApDatos = [{
     "id": 1,
     "Price": 999,
     "GameName": "Call of Duty: Black Ops 3",
-    "Categoria": "Shooter",
     "Stock": 49,
     "Imagen": "/Imagenes/call-of-duty.webp",
   }, {
     "id": 2,
     "Price": 759,
     "GameName": "Counter Strike: Global Ofensive",
-    "Categoria": "Shooter",
     "Stock": 71,
     "Imagen": "/Imagenes/counter.webp",
   }, {
     "id": 3,
     "Price": 2499,
     "GameName": "Red Dead Redemption II",
-    "Categoria": "Shooter",
     "Stock": 30,
     "Imagen": "/Imagenes/red-dead.jpg",
   }, {
     "id": 4,
     "Price": 1999,
     "GameName": "Day Z",
-    "Categoria": "Survival",
     "Stock": 80,
     "Imagen": "/Imagenes/day-z.jpg",
   }, {
     "id": 5,
     "Price": 224,
     "GameName": "The Forest",
-    "Categoria": "Survival",
     "Stock": 68,
     "Imagen": "/Imagenes/forest.webp",
   }, {
     "id": 6,
     "Price": 2440,
     "GameName": "Rust",
-    "Categoria": "Survival",
     "Stock": 3,
     "Imagen": "/Imagenes/rust.webp",
   }, {
     "id": 7,
     "Price": 5499,
     "GameName": "Fife 2022",
-    "Categoria": "Deportes",
     "Stock": 21,
     "Imagen": "/Imagenes/fifa.jpg",
   }, {
     "id": 8,
     "Price": 4019,
     "GameName": "NBA2K 2022",
-    "Categoria": "Deportes",
     "Stock": 67,
     "Imagen": "/Imagenes/nba.webp",
   }, {
     "id": 9,
     "Price": 3599,
     "GameName": "Forza Horizon 5",
-    "Categoria": "Deportes",
     "Stock": 85,
     "Imagen": "/Imagenes/forzahorizon.jpg",
   }] //Con mockaroo una app para construir items.
 
-function datos(categoryid) {
-    return new Promise((resolve, reject) => {
+
+
+// Promesa adentro del componente (las dos formas son validas)
+function ItemDetailContainer(props) {
+    const { id } = useParams();
+
+    let solicitud = new Promise((resolve, reject) => {
 
         setTimeout( () => {
-            if(categoryid === undefined) {
-                resolve(ApDatos);
-            } else {
-                const categoryRequerido = ApDatos.filter( game =>{
-                  return game.Categoria === categoryid;
+                const itemRequerido = ApDatos.find(game =>{
+                    return game.id === Number(id);
                 })
-                resolve(categoryRequerido);
-            }
+                resolve(itemRequerido);  
         }, 2000);
-    })
-}// Promesa fuera del componente (las dos formas son validas)
+    });
 
-
-function ItemsListContainer(props) {
-    const [games, setGame] = useState([]);  //Asi guardo un array vacio.
-
-    const { categoryid } = useParams();
+    const [game, setGame] = useState([]);  //Asi guardo un array vacio.
 
     useEffect( () =>{
-        let solicitud = datos(categoryid);
 
         solicitud.then( (datosRespuesta) => {
             setGame(datosRespuesta);
@@ -99,18 +85,17 @@ function ItemsListContainer(props) {
             console.log(errorReject);
         })
 
-    },[categoryid]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces.
-
+    },[id]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces. 
 
     return (
-      <div>
-      <h1 className="text-success container mb-3">{props.greeting}</h1> 
-      <div className="container mb-3 Es-width">       
+        <div>
+            <h1 className="text-success container mb-3">{props.greeting}</h1> 
+            <div className="container mb-3 Es-width">       
 
-      <Itemslist game = {games} />
-      </div>
-  </div>// game es distinto al game que guarde en la variable const, solo que se puede usar el mismo nombre.
+            <ItemDetail game = {game} />
+            </div>
+        </div>// game es distinto al game que guarde en la variable const, solo que se puede usar el mismo nombre.
     );
 }
 
-export default ItemsListContainer;
+export default ItemDetailContainer;
