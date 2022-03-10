@@ -65,7 +65,7 @@ const ApDatos = [{
 function ItemDetailContainer(props) {
     const { id } = useParams();
 
-    let solicitud = new Promise((resolve, reject) => {
+    let solicitud = new Promise((resolve) => {
 
         setTimeout( () => {
                 const itemRequerido = ApDatos.find(game =>{
@@ -81,9 +81,7 @@ function ItemDetailContainer(props) {
 
         solicitud.then( (datosRespuesta) => {
             setGame(datosRespuesta);
-        }).catch((errorReject) =>{
-            console.log(errorReject);
-        })
+        });
 
     },[id]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces. 
 

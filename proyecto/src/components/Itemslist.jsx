@@ -5,7 +5,8 @@ function Itemslist({game}) {
     return (
         <>
             {game.map( (item) =>{
-                return <Item id={item.id}
+                return <Item key={item.id}
+                             id={item.id}
                              GameName={item.GameName}
                              Price={item.Price}
                              Stock={item.Stock}
