@@ -2,13 +2,14 @@ import React, {useState} from 'react'
 import ItemCount from './ItemCount';
 import { useContext } from "react";
 import CartContext from './CartContext';
+import { Link } from 'react-router-dom';
 
 function ItemDetail({game}) {
     let [lim, setLim] = useState(false);
-    const { addItem, clear, getItemInCart } = useContext(CartContext);
+    const { addItem, getItemInCart} = useContext(CartContext);
     let stocksNuevos = game.Stock;
 
-    function onAddCar(count, cant){
+    function onAddCar(game, cant){
         setLim(true);
         addItem(game, cant);
     }
@@ -25,24 +26,23 @@ function ItemDetail({game}) {
                 <div className="card-body">
                     <h3 className="card-title">{game.GameName}</h3>
                     { lim? 
-                                (<button className="fs-4 badge bg-danger text-wrap">
+                                (<Link to="/cart" type="button" className="fs-4 badge bg-danger container mb-3 mt-3 text-wrap d-flex">
                                     Terminar Compra
-                                </button>
+                                </Link>
                             )
                     :       (
                                 <ItemCount
                                 initial = {1}
                                 stocks = {stocksNuevos}
-                                onAddCar={onAddCar}   
+                                onAddCar={onAddCar}
                                 />
                             )
                     }
-                    <button onClick={ clear } className="bg-info container mb-3 mt-3">Vaciar Carrito de Compra</button>  
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                        <p className="fs-4 badge bg-danger text-wrap">
-                            $ {game.Price}
+                        <p className="fs-4 badge bg-danger container mb-3 mt-3 text-wrap d-flex">
+                            $ { game.Price }
                         </p>
                     </li>
                 </ul>

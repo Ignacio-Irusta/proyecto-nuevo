@@ -17,19 +17,35 @@ export function CartContextProvider({children}) {
         }
     }
     function isItemInCart(id){
-        itemCart.some(CI => CI.id === id);
+        return itemCart.some(CI => CI.id === id);
     }
 
     function getItemInCart(id){
-        itemCart.find(CI => CI.id === id);
+        return itemCart.find(CI => CI.id === id);
+    }
+
+    function deletItemInCart(idD){
+        setItemCart(itemCart.filter(game => game.id !== idD));
     }
 
     function clear(){
         setItemCart([]);
     }
 
+    function countCart() {
+        let TotalGame = 0;
+        itemCart.forEach( game => TotalGame += game.cant);
+        return TotalGame;
+    }
+
+    function TotalPrice(){
+        let Totalprice = 0;
+        itemCart.forEach( game => Totalprice += game.cant * game.Price);
+        return Totalprice;
+    }
+
     return (
-        <CartContext.Provider value={ {addItem, itemCart, clear, getItemInCart} }>
+        <CartContext.Provider value={ {addItem, itemCart, clear, getItemInCart, deletItemInCart, countCart, TotalPrice} }>
             {children}
         </CartContext.Provider>
     );

@@ -81,17 +81,22 @@ function ItemDetailContainer(props) {
 
         solicitud.then( (datosRespuesta) => {
             setGame(datosRespuesta);
-        });
+        })
 
     },[id]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces. 
 
     return (
         <div>
-            <h1 className="text-success container mb-3">{props.greeting}</h1> 
-            <div className="container mb-3 Es-width">       
-
-            <ItemDetail game = {game} />
-            </div>
+          <h1 className="text-success container mb-3">{props.greeting}</h1> 
+          <div className="container mb-3 Es-width">  
+            { game?      
+                <ItemDetail game = {game} />
+            
+            :
+            
+              <h3>Loading</h3>
+            }
+          </div> 
         </div>// game es distinto al game que guarde en la variable const, solo que se puede usar el mismo nombre.
     );
 }
