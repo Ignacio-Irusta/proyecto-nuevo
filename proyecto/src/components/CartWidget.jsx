@@ -12,7 +12,7 @@ function CartWidget() {
                 <Cart/>
             </Link>
             {
-                /*countCart()> 0 &&*/ <small>{countCart()}</small> // eso lo comento por que no me lo toma por lo del NaN.
+                countCart()> 0 && <small>{countCart()}</small> // eso lo comento por que no me lo toma por lo del NaN.
             }
         </div>
     );

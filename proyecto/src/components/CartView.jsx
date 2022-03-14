@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 function CartView() {
-    const {itemCart, clear, deletItemInCart, TotalPrice} = useContext(CartContext);
+    const {itemCart, clear, deletItemInCart} = useContext(CartContext);
     
     if ( itemCart.length === 0){
     return (
@@ -27,8 +27,8 @@ function CartView() {
                             <th>Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody className="table al">
+                        <tr className="tb">
                         {itemCart.map(game => {
                             return <tr key={game.id}>
                                 <td>{game.GameName}</td>

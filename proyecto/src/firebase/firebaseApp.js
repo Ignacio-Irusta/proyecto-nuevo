@@ -1,30 +1,46 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { firebase } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore , query, where, getDocs, getDoc, doc, collection } from "firebase/firestore/lite";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyB4Bi1yzB2-nyG1kbaXmZF977lkTCJgl9c",
-  authDomain: "appcoderhouse.firebaseapp.com",
-  projectId: "appcoderhouse",
-  storageBucket: "appcoderhouse.appspot.com",
-  messagingSenderId: "301405318685",
-  appId: "1:301405318685:web:8edd8a949c400b796120f4",
-  measurementId: "G-319HJWBZXG"
+  apiKey: "AIzaSyA5Wyg7r_LEoZ-RN8uJH1esci5y8n0VQ64",
+  authDomain: "coderapp-57404.firebaseapp.com",
+  projectId: "coderapp-57404",
+  storageBucket: "coderapp-57404.appspot.com",
+  messagingSenderId: "407983822279",
+  appId: "1:407983822279:web:c34fa60f34ea59929775e2"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
-export const getFirebase = () =>{
-    return app;
+export const bd = getFirestore (app);
+
+export async function getAllGames(){
+  const myCollection = collection ( bd, "games");
+  const NameGameSnapp = await getDocs(myCollection);
+
+  const res = NameGameSnapp.docs.map( game =>{
+    return {...game.data(), id: game.id }
+  });
+
+  return res;
 }
 
-export const getFirestore = () =>{
-    return firebaseConfig.getFirestore(app);
+export async function getAllGamesFunc(category){
+  const myCollection = collection ( bd, "games");
+  const Query = query(myCollection, where("Categoria", "==", category))
+
+  const NameGameSnapp = await getDocs(Query);
+
+  const res = NameGameSnapp.docs.map( game =>{
+    return {...game.data(), id: game.id }
+  });
+
+  return res;
+}
+
+export async function getAllGamesDet(id){
+  const myCollection = collection ( bd, "games");
+  const docref = doc(myCollection, id); //ref es como la "referencia" a un documento.
+  const resDoc = await getDoc(docref);
+  return {...resDoc.data(), id: resDoc.id}
 }

@@ -9,7 +9,7 @@ function ItemDetail({game}) {
     const { addItem, getItemInCart} = useContext(CartContext);
     let stocksNuevos = game.Stock;
 
-    function onAddCar(game, cant){
+    function onAddCar(cant){
         setLim(true);
         addItem(game, cant);
     }

@@ -1,9 +1,10 @@
 import React, {useState, useEffect } from 'react'; // React.useState ponerlo en la funcion  mientras importo react es lo mismo
 import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
+import { getAllGamesDet } from "../firebase/firebaseApp"
 
 
-const ApDatos = [{
+/*const ApDatos = [{
     "id": 1,
     "Price": 999,
     "GameName": "Call of Duty: Black Ops 3",
@@ -57,15 +58,13 @@ const ApDatos = [{
     "GameName": "Forza Horizon 5",
     "Stock": 85,
     "Imagen": "/Imagenes/forzahorizon.jpg",
-  }] //Con mockaroo una app para construir items.
+  }] //Con mockaroo una app para construir items.*/
 
-
-
-// Promesa adentro del componente (las dos formas son validas)
-function ItemDetailContainer(props) {
+export default function ItemDetailContainer(props) {
     const { id } = useParams();
+    const [game, setGame] = useState([]);
 
-    let solicitud = new Promise((resolve) => {
+    /*let solicitud = new Promise((resolve) => {
 
         setTimeout( () => {
                 const itemRequerido = ApDatos.find(game =>{
@@ -73,17 +72,18 @@ function ItemDetailContainer(props) {
                 })
                 resolve(itemRequerido);  
         }, 2000);
-    });
-
-    const [game, setGame] = useState([]);  //Asi guardo un array vacio.
+    });*/
 
     useEffect( () =>{
+      let solicitud = getAllGamesDet(id);
 
         solicitud.then( (datosRespuesta) => {
             setGame(datosRespuesta);
-        })
+        }).catch((errorReject) =>{
+          console.log(errorReject);
+      })
 
-    },[id]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces. 
+    },[id]);
 
     return (
         <div>
@@ -94,11 +94,9 @@ function ItemDetailContainer(props) {
             
             :
             
-              <h3>Loading</h3>
+              <h3>Loading...</h3>
             }
           </div> 
         </div>// game es distinto al game que guarde en la variable const, solo que se puede usar el mismo nombre.
     );
 }
-
-export default ItemDetailContainer;

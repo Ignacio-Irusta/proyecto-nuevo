@@ -1,9 +1,10 @@
 import React, {useState, useEffect } from 'react'; // React.useState ponerlo en la funcion  mientras importo react es lo mismo
 import Itemslist from './Itemslist';
 import { useParams } from 'react-router-dom';
+import {getAllGames, getAllGamesFunc} from "../firebase/firebaseApp"
 
 
-const ApDatos = [{
+/*const ApDatos = [{
     "id": 1,
     "Price": 999,
     "GameName": "Call of Duty: Black Ops 3",
@@ -82,29 +83,33 @@ function datos(categoryid) {
             }
         }, 2000);
     })
-}// Promesa fuera del componente (las dos formas son validas)
+}// Promesa fuera del componente (las dos formas son validas)*/
 
 
-function ItemsListContainer(props) {
+export default function ItemsListContainer({greeting}) {
     const [games, setGame] = useState([]);  //Asi guardo un array vacio.
-
-    const { categoryid } = useParams();
+    let { categoryid } = useParams();
 
     useEffect( () =>{
-        let solicitud = datos(categoryid);
-
-        solicitud.then( (datosRespuesta) => {
+        const resu =  categoryid ? getAllGamesFunc(categoryid) : getAllGames();
+        resu.then(itemsProm => {
+          console.log(itemsProm);
+          setGame(itemsProm)
+        }).catch((errorReject) =>{
+          console.log(errorReject);
+      })
+        
+        /*solicitud.then( (datosRespuesta) => {
             setGame(datosRespuesta);
         }).catch((errorReject) =>{
             console.log(errorReject);
-        })
-
+        })*/
     },[categoryid]); // Con el useEffect evito que se cree un bucle infinito la mayoria de las veces.
 
 
     return (
       <div>
-      <h1 className="text-success container mb-3">{props.greeting}</h1> 
+      <h1 className="text-success container mb-3">{greeting}</h1> 
       <div className="container mb-3 Es-width">       
 
       <Itemslist game = {games} />
@@ -112,5 +117,3 @@ function ItemsListContainer(props) {
   </div>// game es distinto al game que guarde en la variable const, solo que se puede usar el mismo nombre.
     );
 }
-
-export default ItemsListContainer;

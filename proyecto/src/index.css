@@ -36,3 +36,7 @@ code {
   height: 100%;
  }
 
+ .tb{
+   display: contents;
+ }
+
