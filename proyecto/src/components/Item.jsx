@@ -5,7 +5,7 @@ function Item({GameName, Price, Stock, Imagen, id}) {
     return (
         <div className="col-md-3 Es">
             <div className="shadow p-3 mb-5 bg-body rounded card mx-2">
-                <img src={Imagen} alt={GameName} class="card-img-top"/>
+                <img src= {Imagen} alt={GameName} class="card-img-top"/>
                 <div className="card-body">
                     <h3 className="card-title">{GameName}</h3>
                     <h2 className="text-muted"> Stocks: {Stock}</h2>
