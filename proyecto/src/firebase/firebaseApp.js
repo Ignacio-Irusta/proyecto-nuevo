@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore , query, where, getDocs, getDoc, doc, collection } from "firebase/firestore/lite";
+import { getFirestore , query, where, getDocs, getDoc, doc, collection, addDoc } from "firebase/firestore/lite";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA5Wyg7r_LEoZ-RN8uJH1esci5y8n0VQ64",
-  authDomain: "coderapp-57404.firebaseapp.com",
-  projectId: "coderapp-57404",
-  storageBucket: "coderapp-57404.appspot.com",
-  messagingSenderId: "407983822279",
-  appId: "1:407983822279:web:c34fa60f34ea59929775e2"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -43,4 +43,11 @@ export async function getAllGamesDet(id){
   const docref = doc(myCollection, id); //ref es como la "referencia" a un documento.
   const resDoc = await getDoc(docref);
   return {...resDoc.data(), id: resDoc.id}
+}
+
+export async function sendOrder(orderData){
+  const myCollection = collection( bd, "orders");
+  const orderDoc = await addDoc(myCollection, orderData);
+  console.log(orderDoc.id);
+  return orderDoc.id;
 }

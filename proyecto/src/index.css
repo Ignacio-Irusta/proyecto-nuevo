@@ -23,12 +23,21 @@ code {
 }
 
 .al {
-  
-  color: azure;
   margin-right: 1rem;
   margin-left: 1rem;
 }
 
+.al2{
+  background: white;
+}
+
+.al3{
+  text-align: center;
+}
+
+.al4{
+  color: white;
+}
 .bod {
   background-image: url(https://static.alphacoders.com/thumbs_categories/32.jpg);
   background-position: center;
@@ -39,4 +48,5 @@ code {
  .tb{
    display: contents;
  }
+
 

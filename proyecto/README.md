@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+// El proyecto es una pagina de compra de juegos//
+
+9 cartas que presentan los juegos, sus precios, los stocks y una opcion "ver mas" que te lleva a comprarlo.
+si vamos a "ver mas" vamos a poder comprar el juego varias o las veces que queramos segun el stock que tenemos.
+luego de comprar en las diferentees categorias si es que queremos un tipo de juego especifico.
+podemos ir al carrito que nos indica el juego, el precio del juego segun las cantidades que hayamos comrpado,
+tambien podemos eliminar dichos productos o vaciar el carrito de compra si asi lo deseamos.
