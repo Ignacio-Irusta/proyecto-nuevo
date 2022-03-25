@@ -13,7 +13,7 @@ function CartView() {
 
     function handleSubmit(buyer) {
         let itemOrder = itemCart.map( (game) =>{
-            return {id: game.id, GameName: game.GameName, cant: game.cant, Precio: game.Precio}
+            return {id: game.id, GameName: game.GameName, cant: game.cant, Precio: game.Price}
         });
         const order ={
             "buyer": buyer,
